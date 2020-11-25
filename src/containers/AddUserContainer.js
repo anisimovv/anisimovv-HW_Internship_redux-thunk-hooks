@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { addUser, changeName, handleFormChange } from "../actions/actions";
+import { addUser, handleFormChange, loadJoke } from "../actions/actions";
 
 import AddUserForm from "../components/AddUserForm/AddUserForm";
 
 class AddUserContainer extends Component {
-  state = {
-    id: null,
-    name: "",
-    surName: "",
-    gender: "male",
-  };
+  componentDidMount() {
+    this.props.loadJoke();
+    console.log(this.props);
+  }
 
   handleInputChange = (e) => {
     const target = e.target;
@@ -38,6 +36,8 @@ class AddUserContainer extends Component {
         formData={this.props.formData}
         onInputChange={this.handleInputChange}
         handleSubmit={this.handleSubmit}
+        joke={this.props.joke}
+        isLoading={this.props.isLoading}
       />
     );
   }
@@ -45,10 +45,13 @@ class AddUserContainer extends Component {
 
 const mapStateToProps = (state) => ({
   formData: state.formData,
+  joke: state.joke.value,
+  isLoading: state.joke.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    loadJoke: () => dispatch(loadJoke()),
     handleFormInputChange: (formData) => dispatch(handleFormChange(formData)),
     addUser: (userData) => dispatch(addUser(userData)),
   };

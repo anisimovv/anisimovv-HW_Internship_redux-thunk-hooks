@@ -1,18 +1,23 @@
 import React from "react";
 
 import Box from "@material-ui/core/Box";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import TextField from "@material-ui/core/TextField";
 
 import MenuItem from "@material-ui/core/MenuItem";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 
 const AddUserForm = ({
   formData,
   onInputChange,
   handleSubmit,
+  joke,
+  isLoading,
 }) => {
-const isButtonDisabled = !(formData.name.length > 1 && formData.surName.length > 1);
+  const isButtonDisabled = !(
+    formData.name.length > 1 && formData.surName.length > 1
+  );
 
   return (
     <form noValidate autoComplete="off">
@@ -59,6 +64,10 @@ const isButtonDisabled = !(formData.name.length > 1 && formData.surName.length >
         >
           Add User
         </Button>
+
+        <Box mt={5}>
+          {isLoading ? <CircularProgress /> : <Typography>{joke}</Typography>}
+        </Box>
       </Box>
     </form>
   );
