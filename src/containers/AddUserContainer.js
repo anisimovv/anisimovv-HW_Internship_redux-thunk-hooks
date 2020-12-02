@@ -8,7 +8,7 @@ import AddUserForm from "../components/AddUserForm/AddUserForm";
 class AddUserContainer extends Component {
   componentDidMount() {
     this.props.loadJoke();
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   handleInputChange = (e) => {
